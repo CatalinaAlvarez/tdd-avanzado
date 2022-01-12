@@ -66,12 +66,14 @@ public class StringCalculatorTest {
 
     // Various char delimiter can be defined on the first line
     @Test
-    public void variousCharDelimiterTest() throws Exception {
-        assertThat(stringCalculatorInstance.add("2[###]1000"), is(1002));
+    public void pluralCharactersDelimiterTest() throws Exception {
+        assertThat(stringCalculatorInstance.add("#1#2"), is(3));
     }
 
+   //Various char delimiter on several parts of the code
     @Test
-    public void variousCharDelimitersTest() throws Exception {
-        assertThat(stringCalculatorInstance.add("2[###]1000"), is(1002));
+    public void pluralCharactersDelimiterOneOSomeTest() throws Exception {
+        assertThat(stringCalculatorInstance.add("[###]1[###]3"), is(4));
+        assertThat(stringCalculatorInstance.add("[###]5[###]7[###]"), is(12));
     }
 }

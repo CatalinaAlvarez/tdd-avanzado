@@ -9,34 +9,40 @@ public class StringCalculator {
             int temp;
             String delimiter = null;
             try {
-                System.out.println("Char at 0 " + values.charAt(0));
+                temp = Integer.parseInt("" + values.charAt(0));
             } catch(Exception e) {
-                System.out.println("1" + values.charAt(0));
                 if(("" + values.charAt(0)) == "-") {
                     delimiter = null;
                 } else {
-                    delimiter = "" + values.charAt(0);
+                    if(("" + values.charAt(0)).equals("[")) {
+                        delimiter = "/";
+                    }else{
+                        delimiter = "" + values.charAt(0);}
                 }
             }
-
-            int contador = 0;
-
-            for(int i=0; i<values.length(); i++){
-                if(String.valueOf(values.charAt(i)).equals("[")){
-                    String substring1 = values.substring(0, i);
-                    int index2 = values.indexOf("]");
-                    String substring2 = values.substring(index2+1, values.length());
-                    values = contador>0 ? substring1 + substring2: substring1+ "," + substring2;
-                    contador = contador + 1;
+            String[] splittedList2=values.split("");
+            String hola="";
+            boolean aux=true;
+            for(int i=0;i<splittedList2.length;i++){
+                if (aux){
+                    if (!splittedList2[i].equals("[")){
+                        hola+=splittedList2[i];
+                    }else{
+                        hola+="/";
+                        aux=false;
+                    }
+                }else{
+                    if (splittedList2[i].equals("]")){
+                        aux=true;
+                    }
                 }
-
             }
 
             String[] splittedList = null;
             if(delimiter != null) {
-                splittedList = values.substring(1, values.length()).split(delimiter);
+                splittedList = hola.substring(1, hola.length()).split(delimiter);
             } else {
-                splittedList = values.split("[,|\n]");
+                splittedList = hola.split("[,|\n|#|/]");
             }
 
             ArrayList<Integer> numberList = new ArrayList<Integer>();
@@ -58,5 +64,4 @@ public class StringCalculator {
         }
         return 0;
     }
-
 }
